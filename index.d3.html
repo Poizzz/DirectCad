@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+	<title>SVG</title>
+	<link rel="stylesheet"href="css/style.css"/>
+
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/geom.js"></script>
+	<script src="js/draw.js"></script>
+	<script src="data/test.js"></script>
+	
+	<script language="javascript">
+		$( document ).ready(function() {			
+			//Установка канваса
+			var svg = d3.select("#canvas")
+			  	.append("svg:svg")
+			    .attr("preserveAspectRatio","xMaxYMax meet")
+			    .attr("viewBox","0 0 3000 3000");
+			var paper = svg.append("g").attr("transform", "translate(0,3000) scale(1,-1)");
+			
+			//Отрисовка
+			var draw = new Draw(paper,data_r["system"]);
+			draw.regions(data_r["data"]);
+		});
+	</script>
+</head>
+
+<body>
+<div id="tools"></div>
+<div id="canvas"></div>
+</body>

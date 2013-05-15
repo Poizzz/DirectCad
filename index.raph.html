@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+	<title>SVG</title>
+
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/raphael-min.js"></script>
+
+	<script language="javascript">
+		$( document ).ready(function() {
+			var data_a = {
+				"system" : "relative", //absolute, relative
+				"frames" : [
+					[[0,1400],[1400,0,800],[0,-1400],[-1400,0]],
+				]
+			};	
+			var data_r = {
+				"system" : "absolute", //absolute, relative
+				"frames" : [
+					[[0,1400],[1400,1400,800],[1400,0],[0,0]],
+				]
+			};
+			
+			//Установка канваса
+			var paper = Raphael("canvas", '98%', '98%');
+			paper.setViewBox(0, 0, 4000, 4000, true);
+			paper.clear();
+
+			var draw = new Draw(paper,data_a);
+			draw.layer("frames");
+
+		});
+
+		//Класс отрисовки
+		function Draw (paper,data) {
+			this.paper = paper;
+			this.data = data;
+			this.system = data["system"];
+
+			//Отрисовка слоя
+			this.layer = function (type){
+				this.paper.setStart();
+				for (var i = 0; i<data[type].length;  i++) {
+					path = this.path(data[type][i], i);					
+					this.paper.path( path);
+					console.log(path);
+				}
+				var st = this.paper.setFinish();
+				st.attr({fill: "red"});		
+	
+			}
+			
+			//Создание тега path из JSON
+			this.path = function(data,id){
+				var comm = (this.system === "absolute") 
+					? {"M":"M", "L":" L", "A":" A"}
+					: {"M":"m", "L":" l", "A":" a"};
+				var d = comm["M"]+'0,0';
+				for (var i = 0; i<data.length;  i++) {
+					switch (data[i].length){
+						case 2 : d += comm["L"]+data[i]; break;
+						case 3 : d += comm["A"]+data[i][2]+','+data[i][2]+' 0 0,0 '+data[i][0]+','+data[i][1]; break;
+					}				
+				}
+				return d;
+			}
+		}
+
+	</script>
+	<style type="text/css">
+		#tools {
+			border:1px solid black;
+			background-color:silver;
+			margin: 2px 0px;
+			width: 300px;
+			height: 20px;			
+		}
+		#canvas {
+			border:1px solid black;
+			margin: 0px;
+			width: 300px;
+			height: 300px;	
+		}
+				svg {
+					margin: 1%;
+					padding: 0px;
+					width: 98%;
+					height: 98%;
+				}
+				path {
+					stroke: black;
+					stroke-width:10px; 
+					fill: none;
+				}
+	</style>
+</head>
+<body>
+
+<div id="tools"></div>
+<div id="canvas"></div>
+
+
+
+</body>

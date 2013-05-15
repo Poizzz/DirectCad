@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+	<title>TEST</title>
+	<link rel="stylesheet"href="css/style.css"/>
+
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/geom.js"></script>
+	<script src="js/draw.js"></script>
+	
+	<script language="javascript">
+		$( document ).ready(function() {			
+			//Установка канваса
+			var svg = d3.select("#canvas")
+			  	.append("svg:svg")
+			    .attr("preserveAspectRatio","xMaxYMax meet")
+			    .attr("viewBox","0 0 4000 4000");
+			var paper = svg.append("g").attr("transform", "translate(0,4000) scale(1,-1)");
+			var gLayer = paper.append("g");
+			
+			var utils = new Utils();
+			var geom = new Geom();
+			var draw = new Draw(paper);
+
+			var data = [[2000,2000],[3000,2000,1000]];
+			//var ParLine = geom.LineParallel(data[0],data[1],100);
+			var ParLine = geom.ArkParallel(data[0],data[1],200);
+			console.log(ParLine);
+			//Отрисовка			
+			gLayer.append("path").attr("d", draw.path(data));
+			gLayer.append("path").attr("d", draw.path( ParLine ) ).style("stroke", "red");
+			//draw.regions(data_r["data"]);
+		});
+	</script>
+</head>
+
+<body>
+<div id="tools"></div>
+<div id="canvas"></div>
+</body>
