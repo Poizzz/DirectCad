@@ -35,6 +35,19 @@ function Geom () {
 		//длина высоты до центра окружноси
 		var Vl = Math.sqrt(Radius*Radius-(Hl/2)*(Hl/2));
 		console.log(Vl);
+
+
+/*d := sqrt ((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+  h := sqrt(r * r - (d/2) * (d/2));
+
+  x01 := x1 + (x2 - x1)/2 + h * (y2 - y1) / d;
+  y01 := y1 + (y2 - y1)/2 - h * (x2 - x1) / d;
+
+  x02 := x1 + (x2 - x1)/2 - h * (y2 - y1) / d
+  y02 := y1 + (y2 - y1)/2 + h * (x2 - x1) / d;
+
+*/
+		
 	};
 
 	//Расчет длины линии
