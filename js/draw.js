@@ -1,15 +1,4 @@
 
-//Класс отрисовки
-
-function extend(Child, Parent) {
-	var F = function() { }
-	F.prototype = Parent.prototype
-	Child.prototype = new F()
-	Child.prototype.constructor = Child
-	Child.superclass = Parent.prototype
-}
-//extend(FrameObj,Draw);
-
 function Draw (paper,system) {
 	this.paper = paper;	
 	this.system = (system) ? system : "absolute";
@@ -89,7 +78,7 @@ function FrameObj (data){
 	this.internal = this.calcIncludeRegions();
 }
 
-	//Прверка наличия арки в контуре
+//Прверка наличия арки в контуре
 FrameObj.prototype.checkArk = function(){
 	for (var i = 0; i<this.region.length;  i++) {
 		if(this.region[i][2]) return true;
